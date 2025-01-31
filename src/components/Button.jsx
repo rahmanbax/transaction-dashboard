@@ -6,7 +6,7 @@ const Button = (props) => {
   return (
     <button
       onClick={onClick}
-      className={`py-2 px-4 rounded-xl cursor-pointer transition ease-out shadow-sm
+      className={`w-fit py-2 px-4 rounded-xl cursor-pointer transition ease-out shadow-sm
 ${
   primary
     ? " bg-emerald-500 hover:bg-emerald-600 text-white"
