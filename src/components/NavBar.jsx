@@ -7,6 +7,7 @@ const NavBar = () => {
     <nav className="sticky left-0 top-0 w-56 h-screen bg-white border-r border-r-gray-200">
       <ul className="mt-10">
         <Link to={"/"}><li className="p-5 hover:bg-gray-100 text-base flex gap-2 items-center"><MdDashboard/> Dashboard</li></Link>
+        <Link to={"/dashboardalt"}><li className="p-5 hover:bg-gray-100 text-base flex gap-2 items-center"><MdDashboard/> Dashboard 2</li></Link>
       </ul>
     </nav>
   );
