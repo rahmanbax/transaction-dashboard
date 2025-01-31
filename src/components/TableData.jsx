@@ -8,6 +8,7 @@ const TableData = ({
   onDetailClick,
   statusName,
   showActions = true,
+  showEditButton = true,
 }) => {
   return (
     <tr className="h-15 border border-gray-200 hover:bg-gray-100 transition ease-out">
@@ -21,9 +22,11 @@ const TableData = ({
       <td className="text-center">{transaction.createOn}</td>
       {showActions && (
         <td className="flex justify-center gap-4 items-center my-3">
-          <Link to={`/edit/${transaction.id}`}>
-            <Button label="Edit" />
-          </Link>
+          {showEditButton && (
+            <Link to={`/edit/${transaction.id}`}>
+              <Button label="Edit" />
+            </Link>
+          )}
           <Button
             onClick={() => onDetailClick(transaction)}
             primary={false}
