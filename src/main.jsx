@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <AddDataPage />,
   },
   {
-    path: "/edit",
+    path: "/edit/:id",
     element: <EditDataPage />,
   },
 ]);
