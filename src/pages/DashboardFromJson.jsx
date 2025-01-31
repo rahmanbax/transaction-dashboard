@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import dataFromJson from "../services/viewData.json";
 import TableData from "../components/TableData";
+import Modal from "../components/Modal";
+import DetailTransaksi from "../components/DetailTransaksi";
 
 const DashboardFromJson = () => {
   const [transactions, setTransactions] = useState([]);
   const [status, setStatus] = useState([]);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setTransactions(dataFromJson.data);
@@ -15,6 +19,11 @@ const DashboardFromJson = () => {
   const getStatusName = (statusId) => {
     const statusObj = status.find((s) => s.id === statusId);
     return statusObj ? statusObj.name : "UNKNOWN";
+  };
+
+  const handleDetailClick = (transaction) => {
+    setSelectedTransaction(transaction);
+    setOpen(true);
   };
 
   const groupDataByYearMonth = (data) => {
@@ -56,6 +65,7 @@ const DashboardFromJson = () => {
               <th>Transaction Date</th>
               <th>Created By</th>
               <th>Created On</th>
+              <th>Actions</th>
             </tr>
           </thead>
           {Object.keys(groupedTransactions).map((key) => {
@@ -64,7 +74,7 @@ const DashboardFromJson = () => {
               <tbody key={key}>
                 <tr>
                   <td
-                    colSpan="8"
+                    colSpan="9"
                     className="text-center font-bold p-2 bg-gray-100"
                   >
                     {year} - {month}
@@ -76,7 +86,9 @@ const DashboardFromJson = () => {
                     key={transaction.id}
                     transaction={transaction}
                     statusName={getStatusName}
-                    showActions={false}
+                    showActions={true}
+                    showEditButton={false}
+                    onDetailClick={handleDetailClick}
                   />
                 ))}
               </tbody>
@@ -84,6 +96,18 @@ const DashboardFromJson = () => {
           })}
         </table>
       </main>
+
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div className="flex flex-col gap-5">
+          <h1 className="font-semibold text-2xl">Detail Transaksi</h1>
+          {selectedTransaction && (
+            <DetailTransaksi
+              {...selectedTransaction}
+              status={getStatusName(selectedTransaction.status)}
+            />
+          )}
+        </div>
+      </Modal>
     </div>
   );
 };
